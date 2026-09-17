@@ -12,7 +12,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.analytics.reporting_engine.security.JwtAuthenticationFilter;
 
-
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
@@ -33,10 +32,8 @@ public class SecurityConfig {
             throws Exception {
 
         http
-            // REST API ke liye CSRF disable
             .csrf(csrf -> csrf.disable())
 
-            // JWT based authentication hai, session nahi
             .sessionManagement(session ->
                 session.sessionCreationPolicy(
                     SessionCreationPolicy.STATELESS
@@ -45,17 +42,18 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
 
-                // Registration aur Login public rahenge
                 .requestMatchers(
+                    "/",
                     "/auth/register",
-                    "/auth/login"
+                    "/auth/login",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**"
                 ).permitAll()
 
-                // Baaki APIs ke liye JWT required
                 .anyRequest().authenticated()
             )
 
-            // JWT filter ko Spring Security chain mein add karo
             .addFilterBefore(
                 jwtAuthenticationFilter,
                 UsernamePasswordAuthenticationFilter.class
