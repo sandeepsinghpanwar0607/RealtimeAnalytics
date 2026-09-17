@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns="http://www.ehcache.org/v3">
+
+    <cache alias="userAgentCache">
+
+        <heap unit="entries">1000</heap>
+
+        <expiry>
+            <ttl unit="minutes">5</ttl>
+        </expiry>
+
+    </cache>
+
+    <cache alias="geolocationCache">
+
+        <heap unit="entries">1000</heap>
+
+        <expiry>
+            <ttl unit="minutes">5</ttl>
+        </expiry>
+
+    </cache>
+
+</config>
